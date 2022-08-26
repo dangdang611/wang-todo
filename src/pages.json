@@ -6,15 +6,15 @@
 			//页面窗口表现
 			"style": {
 				"navigationBarTitleText": "忘星人To Do",
-				"disableScroll":false
+				"disableScroll": false
 			}
-		},{
-			"path":"pages/oneDay/oneDay",
+		}, {
+			"path": "pages/oneDay/oneDay",
 			"style": {
 				// 微信小程序/支付宝
 				"navigationBarTitleText": "我的一天",
-				"navigationStyle": "custom" ,// 取消本页面的导航栏
-				
+				"navigationStyle": "custom", // 取消本页面的导航栏
+
 				//h5和app端
 				"app-plus": {
 					"animationType": "fade-in", // 设置fade-in淡入动画，为最合理的动画类型
@@ -24,7 +24,63 @@
 					"mask": "none",
 					"opacity": 0.9,
 					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
-					}
+				}
+			}
+		}, {
+			"path": "pages/importantItem/importantItem",
+			"style": {
+				// 微信小程序/支付宝
+				"navigationBarTitleText": "我的一天",
+				"navigationStyle": "custom", // 取消本页面的导航栏
+
+				//h5和app端
+				"app-plus": {
+					"animationType": "fade-in", // 设置fade-in淡入动画，为最合理的动画类型
+					"background": "transparent", // 背景透明
+					"backgroundColor": "rgba(0,0,0,0)", // 背景透明
+					"webviewBGTransparent": true,
+					"mask": "none",
+					"opacity": 0.9,
+					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
+			}
+
+		}, {
+			"path": "pages/task/task",
+			"style": {
+				// 微信小程序/支付宝
+				"navigationBarTitleText": "任务",
+				"navigationStyle": "custom", // 取消本页面的导航栏
+
+				//h5和app端
+				"app-plus": {
+					"animationType": "fade-in", // 设置fade-in淡入动画，为最合理的动画类型
+					"background": "transparent", // 背景透明
+					"backgroundColor": "rgba(0,0,0,0)", // 背景透明
+					"webviewBGTransparent": true,
+					"mask": "none",
+					"opacity": 0.9,
+					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
+			}
+		},
+		{
+			"path": "pages/plan/plan",
+			"style": {
+				// 微信小程序/支付宝
+				"navigationBarTitleText": "计划",
+				"navigationStyle": "custom", // 取消本页面的导航栏
+
+				//h5和app端
+				"app-plus": {
+					"animationType": "fade-in", // 设置fade-in淡入动画，为最合理的动画类型
+					"background": "transparent", // 背景透明
+					"backgroundColor": "rgba(0,0,0,0)", // 背景透明
+					"webviewBGTransparent": true,
+					"mask": "none",
+					"opacity": 0.9,
+					"popGesture": "none" // 关闭IOS屏幕左边滑动关闭当前页面的功能
+				}
 			}
 		}
 	],
@@ -35,20 +91,18 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"easycom": {
-			"autoscan": true,
-			"custom": {
-				// uni-ui 规则如下配置
-				"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-			}
-		},
-	"condition" : { //模式配置，仅开发期间生效
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "pages/oneDay/oneDay", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "", //模式名称
+			"path": "pages/oneDay/oneDay", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	}
 }

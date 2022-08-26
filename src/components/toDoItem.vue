@@ -1,9 +1,11 @@
 <template>
 	<uni-transition ref="ani" :show="show">
-		<uni-card class="card" ref="todo" :is-shadow="false" :class="status ? 'done' : ''">
+		<uni-card class="card" ref="todo" :is-shadow="false">
 			<delSlideLeft :todoId="props.todo.id">
-				<label @click="run">
-					<radio :checked="status" color="#9C9EFE" />
+				<view class="leftSlot"><slot name="leftContent"></slot></view>
+				<view class="rightSlot"><slot name="rightContent"></slot></view>
+				<label @click="run" style="z-index:99" :class="props.todo.done ? 'done' : 'noDone'" :style="`color:${props.styles.color2}`">
+					<radio class="radio" :checked="props.todo.done" :color="props.styles.color1" />
 					<text class="name">{{ props.todo.name }}</text>
 				</label>
 			</delSlideLeft>
@@ -12,21 +14,17 @@
 </template>
 
 <script setup lang="ts">
-import delSlideLeft from './delSlideLeft.vue';
-
 import { ref, reactive, nextTick } from 'vue';
 import { onReady } from '@dcloudio/uni-app';
+import delSlideLeft from './delSlideLeft.vue';
 
 const todo = ref(null);
 const ani = ref(null);
 
-const props = defineProps(['todo']);
+const props = defineProps(['todo', 'styles']);
 const emits = defineEmits(['toggleDone']);
 
-let status = ref(false);
 let show = ref(true);
-
-status.value = props.todo.done;
 
 const run = () => {
 	// 向下平移100px
@@ -50,40 +48,59 @@ const run = () => {
 };
 
 const toggle = () => {
-	status.value = !status.value;
 	emits('toggleDone', props.todo.id);
 };
 
 onReady(() => {
 	nextTick(() => {
-		ani.value.init({
-			duration: 300,
-			timingFunction: 'linear',
-			transformOrigin: '50% 50%',
-			delay: 0
-		});
+		//存在bug，会不显示
+		// ani.value.init({
+		// 	duration: 300,
+		// 	timingFunction: 'linear',
+		// 	transformOrigin: '50% 50%',
+		// 	delay: 0
+		// });
 	});
 });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .card {
+	position: relative;
 	/deep/.uni-card {
 		margin: 0 !important;
 		padding: 0 !important;
 	}
-}
 
-.radio {
-	transform: scale(0.7);
-}
+	.leftSlot {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -99;
+	}
+	.rightSlot {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.radio {
+		transform: scale(0.8);
+	}
 
-.done {
-	text-decoration: line-through;
-	color: #a66cff;
+	.done {
+		text-decoration: line-through;
 
-	.name {
-		color: #bbb !important;
+		.name {
+			color: #bbb !important;
+		}
+	}
+
+	.noDone {
+		.name {
+			color: #666 !important;
+		}
 	}
 }
 </style>

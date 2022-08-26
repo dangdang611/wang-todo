@@ -1,15 +1,17 @@
 <template>
 	<view class="container">
-		<image class="bg-img" src="http://101.35.194.184:8080/club/img/foreign/314/1661219421498431529176.webp"></image>
 		<view class="content">
 			<view class="header">
-				<uni-icons type="arrow-left" @click="goBack" size="30" color="#ffff"></uni-icons>
-				<view class="nav-title">
-					<text>我的一天</text>
-					<text>{{ time }}</text>
-				</view>
+				<uni-icons type="arrow-left" @click="goBack" size="30" color="#b93160"></uni-icons>
+				<view class="nav-title"><text>重要</text></view>
 			</view>
-			<view class="list"><toDoItem v-for="todo in todoList" :styles="styles" :key="todo.id" :todo="todo" @toggleDone="toggleDone" /></view>
+			<view class="list">
+				<toDoItem v-for="todo in todoList" :key="todo.id" :todo="todo" :styles="styles" @toggleDone="toggleDone">
+					<template v-slot:rightContent>
+						<uni-icons type="star-filled" size="26" color="#b93160"></uni-icons>
+					</template>
+				</toDoItem>
+			</view>
 		</view>
 		<view class="footer"><uni-icons @click="addTodo" type="plus" size="65" color="#ffff"></uni-icons></view>
 		<uni-popup ref="popup" type="bottom">
@@ -31,39 +33,36 @@
 <!-- http://101.35.194.184:8080/club/img/foreign/584/1661219421768431529176.webp -->
 <script setup lang="ts">
 import toDoItem from '@/components/toDoItem.vue';
-import { uuid } from '@/utils/uuid.ts';
 import { useStore } from 'vuex';
+
 import { reactive, ref, Ref, provide } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
+import { uuid } from '@/utils/uuid.ts';
 
 interface todoInfo {
 	id: string;
 	name: string;
 	done: boolean;
 }
-
 const styles = {
-	color1: '#9C9EFE',
-	color2: '#a66cff'
+	color1: '#ffb3b3',
+	color2: '#F65A83'
 };
 
 const store = useStore();
 const popup = ref(null);
-
+//添加
 let todo = ref('');
 let todoList = ref([]);
 
-const date = new Date();
-const day = '星期' + '日一二三四五六'.charAt(new Date().getDay());
-const time = date.getMonth() + 1 + '月' + date.getDate() + '日 ' + day;
 // 返回上一页
 const navBack = () => {
 	uni.navigateBack();
 };
 
 const toggleDone = id => {
-	store.dispatch('oneDay/toggle', id);
-	todoList.value = store.state.oneDay.todoList;
+	store.dispatch('importantItem/del', id);
+	todoList.value = store.state.importantItem.todoList;
 };
 
 const addTodo = () => {
@@ -72,8 +71,8 @@ const addTodo = () => {
 };
 
 const delTodo = (id: string) => {
-	store.dispatch('oneDay/del', id);
-	todoList.value = store.state.oneDay.todoList;
+	store.dispatch('importantItem/del', id);
+	todoList.value = store.state.importantItem.todoList;
 };
 
 //将删除方法暴露给子组件
@@ -89,8 +88,8 @@ const iconClick = () => {
 			done: false
 		};
 		info.id = uuid();
-		store.dispatch('oneDay/add', info);
-		todoList.value = store.state.oneDay.todoList;
+		store.dispatch('importantItem/add', info);
+		todoList.value = store.state.importantItem.todoList;
 
 		todo.value = '';
 	} else {
@@ -102,24 +101,23 @@ const iconClick = () => {
 };
 
 const goBack = () => {
+	console.log(11);
 	uni.navigateBack({
 		delta: 1 //返回层数，2则上上页
 	});
 };
 
 onLoad(() => {
-	todoList.value = store.state.oneDay.todoList;
+	todoList.value = store.state.importantItem.todoList;
 });
 </script>
 
 <style lang="less" scoped>
-.bg-img {
-	position: fixed;
+.container {
 	width: 100%;
 	height: 100%;
-	top: 0;
-	left: 0;
 	z-index: -999;
+	background-color: #f2d1d1;
 }
 .header {
 	width: 100%;
@@ -131,7 +129,7 @@ onLoad(() => {
 	.nav-title {
 		display: flex;
 		flex-direction: column;
-		color: #fff;
+		color: #b93160;
 
 		text:nth-of-type(1) {
 			font-size: 20px;

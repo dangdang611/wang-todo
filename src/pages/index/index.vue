@@ -8,10 +8,10 @@
 			</view>
 		</ui-row>
 		<uni-list class="list">
-			<uni-list-item @click="goList()" link :show-extra-icon="true" :extra-icon="extraIcon1" title="我的一天"></uni-list-item>
-			<uni-list-item link :show-extra-icon="true" :extra-icon="extraIcon2" title="重要"></uni-list-item>
-			<uni-list-item link :show-extra-icon="true" :extra-icon="extraIcon3" title="任务"></uni-list-item>
-			<uni-list-item link :show-extra-icon="true" :extra-icon="extraIcon4" title="计划内"></uni-list-item>
+			<uni-list-item @click="goList('../oneDay/oneDay')" link :show-extra-icon="true" :extra-icon="extraIcon1" title="我的一天"></uni-list-item>
+			<uni-list-item @click="goList('../importantItem/importantItem')" link :show-extra-icon="true" :extra-icon="extraIcon2" title="重要"></uni-list-item>
+			<uni-list-item @click="goList('../task/task')" link :show-extra-icon="true" :extra-icon="extraIcon3" title="任务"></uni-list-item>
+			<uni-list-item @click="goList('../plan/plan')" link :show-extra-icon="true" :extra-icon="extraIcon4" title="计划内"></uni-list-item>
 		</uni-list>
 
 		<view class="footer">
@@ -33,10 +33,10 @@ const extraIcon2 = ref({ type: 'star', color: '#FD5D5D', size: '25' });
 const extraIcon3 = ref({ type: 'calendar', color: '#4E944F', size: '25' });
 const extraIcon4 = ref({ type: 'compose', color: '#73A9AD', size: '25' });
 
-const goList = () => {
+const goList = path => {
 	//在起始页面跳转到test.vue页面并传递参数
 	uni.navigateTo({
-		url: '../oneDay/oneDay'
+		url: path
 	});
 };
 </script>
