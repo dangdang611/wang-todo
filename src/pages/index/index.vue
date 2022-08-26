@@ -4,7 +4,7 @@
 			<view class="left"><uni-icons custom-prefix="t-icon" type="t-icon-gerenzhongxin" size="30"></uni-icons></view>
 			<view class="right">
 				<text>当当</text>
-				<text>18613932106</text>
+				<text>1861393****</text>
 			</view>
 		</ui-row>
 		<uni-list class="list">
@@ -28,6 +28,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { onLoad } from '@dcloudio/uni-app';
+
 const extraIcon1 = ref({ type: 'checkbox', color: '#B2A4FF', size: '25' });
 const extraIcon2 = ref({ type: 'star', color: '#FD5D5D', size: '25' });
 const extraIcon3 = ref({ type: 'calendar', color: '#4E944F', size: '25' });

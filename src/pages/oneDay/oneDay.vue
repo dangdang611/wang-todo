@@ -31,7 +31,7 @@
 <!-- http://101.35.194.184:8080/club/img/foreign/584/1661219421768431529176.webp -->
 <script setup lang="ts">
 import toDoItem from '@/components/toDoItem.vue';
-import { uuid } from '@/utils/uuid.ts';
+import { uuid } from '@/utils/uuid';
 import { useStore } from 'vuex';
 import { reactive, ref, Ref, provide } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';

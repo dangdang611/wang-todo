@@ -82,8 +82,8 @@ interface todoInfo {
 	overTime: string;
 }
 const styles = {
-	color1: '#ffb3b3',
-	color2: '#F65A83'
+	color1: '#ABC9FF',
+	color2: '#277BC0'
 };
 
 const store = useStore();
@@ -168,7 +168,7 @@ const changeOptions = e => {
 };
 
 const toggleDone = id => {
-	store.dispatch('plan/del', id);
+	store.dispatch('plan/toggle', id);
 	getTodoList(selectValue.value);
 };
 
