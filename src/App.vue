@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app';
+import store from '@/store';
 onLaunch(() => {
-	console.log('App Launch');
+	//获取code
+	uni.login({
+		provider: 'weixin',
+		success(res) {
+			store.dispatch('user/saveCode', res.code);
+		}
+	});
+	wxGetUserInfo();
 });
 onShow(() => {
 	console.log('App Show');
@@ -9,6 +17,11 @@ onShow(() => {
 onHide(() => {
 	console.log('App Hide');
 });
+
+// 获取用户信息
+function wxGetUserInfo() {
+	store.dispatch('user/getUserInfo');
+}
 </script>
 
 <style lang="scss">

@@ -1,10 +1,13 @@
 <template>
 	<view class="content">
-		<ui-row class="header">
-			<view class="left"><uni-icons custom-prefix="t-icon" type="t-icon-gerenzhongxin" size="30"></uni-icons></view>
+		<ui-row class="header" v-if="!store.getters['user/avatarUrl']">
+			<view class="left"><uni-icons custom-prefix="t-icon" type="t-icon-gerenzhongxin"></uni-icons></view>
+			<view class="right"><text style="color:#999;font-size: 16px;">未登录</text></view>
+		</ui-row>
+		<ui-row class="header" v-else>
+			<view class="left"><image :src="store.getters['user/avatarUrl']" mode="widthFix" style="width:45px;height:30px;border-radius: 50%;"></image></view>
 			<view class="right">
-				<text>当当</text>
-				<text>1861393****</text>
+				<text>{{ store.getters['user/nickName'] }}</text>
 			</view>
 		</ui-row>
 		<uni-list class="list">
@@ -29,6 +32,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onLoad } from '@dcloudio/uni-app';
+import store from '@/store';
 
 const extraIcon1 = ref({ type: 'checkbox', color: '#B2A4FF', size: '25' });
 const extraIcon2 = ref({ type: 'star', color: '#FD5D5D', size: '25' });
@@ -40,6 +44,12 @@ const goList = path => {
 	uni.navigateTo({
 		url: path
 	});
+};
+
+const getPhoneNumber = e => {
+	console.log(e.detail.errMsg);
+	console.log(e.detail.iv);
+	console.log(e.detail.encryptedData);
 };
 </script>
 
@@ -66,13 +76,8 @@ const goList = path => {
 			display: flex;
 			flex-direction: column;
 
-			text:nth-child(1) {
+			text {
 				font-size: 18px;
-			}
-
-			text:nth-child(2) {
-				font-size: 14px;
-				color: #999;
 			}
 		}
 	}
